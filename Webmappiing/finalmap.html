@@ -103,6 +103,26 @@
     }
     // 地図にルートを追加
     addRouteLayer();
+
+    // 避難所用アイコン
+    const shelterIcon = L.icon({
+     iconUrl: 'https://maps.gstatic.com/mapfiles/ms2/micons/red.png',
+     iconSize: [32, 32],
+     iconAnchor: [16, 32],
+     popupAnchor: [0, -32]
+    });
+     // GeoJSONレイヤーを作成
+    fetch("./27000_2.geojson") 
+                .then((response) => response.json())
+                .then(data=> {
+                const shelter = L.geoJSON(data, {
+      pointToLayer: (feature, latlng) => {
+        return L.marker(latlng, { icon: shelterIcon });
+      }
+    }).addTo(map);
+                    // チェックボックス
+                    LayerControl.addOverlay(shelter, "指定緊急避難場所")
+            });
         </script>
     </body>
 </html>
