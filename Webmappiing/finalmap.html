@@ -115,6 +115,7 @@
     fetch("./27000_2.geojson") 
                 .then((response) => response.json())
                 .then(data=> {
+                const markers = L.markerClusterGroup()
                 const shelter = L.geoJSON(data, {
       pointToLayer: (feature, latlng) => {
         return L.marker(latlng, { icon: shelterIcon });
